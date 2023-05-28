@@ -1,9 +1,10 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
+import { useEffect } from "react"
+import axios from "./utils/axios"
 import MainContent from "./layouts"
 import Login from "./pages/Login"
 import Post from "./pages/Post"
-import { useEffect } from "react"
 
 function App() {
     const navigate = useNavigate()
@@ -14,6 +15,7 @@ function App() {
         if (path !== "/" && !token) {
             navigate("/")
         }
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
     })
     return (
         <ChakraProvider>
